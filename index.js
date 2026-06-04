@@ -2,7 +2,15 @@
 // const cetakNama = (nama) => `Hi, nama saya ${nama}`;
 // console.log(cetakNama(nama));
 
-const cetakNama = require("./coba");
+// const fs = require("fs"); // core moddule
+// const cetakNama = require("./coba"); // local module
+// const moment = require("moment"); // third party module / npm module / node_modules
 
 // console.log("Hello!");
-console.log(cetakNama("Faiq"));
+
+// const cetakNama = require("./coba");
+// const PI = require("./coba");
+
+const coba = require("./coba");
+
+console.log(coba.cetakNama("Faiq"), coba.PI, coba.mahasiswa.cetakMhs(), new coba.Orang());
