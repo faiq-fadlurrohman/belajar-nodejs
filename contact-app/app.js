@@ -1,21 +1,34 @@
-// Mengambil argument dari command line
-// const command = process.argv[2];
-// if (command === 'add') {
-    
-// } else if(command === 'remove') {
+const yargs = require('yargs');
 
-// } else if (command === 'list') {
-    
-// }
+yargs.command({
+    command: 'add',
+    describe: 'Menambahkan contact baru',
+    builder: {
+        nama: {
+            describe: "Nama lengkap",
+            demandOption: true,
+            type: 'string'
+        },
+        email: {
+            describe: "Email",
+            demandOption: false,
+            type: 'string'
+        },
+        noHP: {
+            describe: "Nomor HP",
+            demandOption: true,
+            type: 'string'
+        }
+    },
+    handler(argv) {
+        const contact = {
+            nama: argv.nama,
+            email: argv.email,
+            noHP: argv.noHP
+        }
 
+        console.log(contact);
+    }
+});
 
-// const contacts = require('./contacts');
-// const main = async () => {
-//     const nama = await contacts.tulisPertanyaan('Masukkan nama anda : ');
-//     const email = await contacts.tulisPertanyaan('Masukkan email anda : ');
-//     const noHP = await contacts.tulisPertanyaan('Masukkan nomor HP anda : ');
-
-//     contacts.simpanContact(nama, email, noHP);
-// }
-
-// main();
+yargs.parse();
