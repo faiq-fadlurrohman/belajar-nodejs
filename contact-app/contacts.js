@@ -1,7 +1,6 @@
 const fs = require('fs');
 const chalk = require('chalk');
 const validator = require('validator');
-const { constants } = require('buffer');
 
 // Membuat folder data jika belum ada
 const dirPath = './data';
