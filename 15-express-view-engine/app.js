@@ -1,9 +1,11 @@
 const express = require("express");
+const expresLayouts = require("express-ejs-layouts");
 const app = express();
 const port = 3000;
 
 // Gunakan EJS
 app.set("view engine", "ejs");
+app.use(expresLayouts);
 
 app.get("/", (req, res) => {
   const mahasiswa = [
@@ -25,15 +27,22 @@ app.get("/", (req, res) => {
     nama: "Fa'iq Fadlurrohman",
     title: "Halaman Home",
     mahasiswa,
+    layout: "layouts/main-layout",
   });
 });
 
 app.get("/about", (req, res) => {
-  res.render("about", { title: "Halaman About" });
+  res.render("about", {
+    layout: "layouts/main-layout",
+    title: "Halaman About",
+  });
 });
 
 app.get("/contact", (req, res) => {
-  res.render("contact", { title: "Halaman Contact" });
+  res.render("contact", {
+    layout: "layouts/main-layout",
+    title: "Halaman Contact",
+  });
 });
 
 app.get("/product/:id", (req, res) => {
