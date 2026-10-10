@@ -5,6 +5,8 @@ const {
   findContact,
   addContact,
   cekDuplikat,
+  deleteContact,
+  updateContact,
 } = require("./utils/contacts");
 const { body, validationResult, check } = require("express-validator");
 const session = require("express-session");
@@ -113,6 +115,64 @@ app.post(
       addContact(req.body);
       // Kirimkan flash message
       req.flash("msg", "Data kontak berhasil ditambahkan!");
+      res.redirect("/contact");
+    }
+  },
+);
+
+// Proses delete contact
+app.get("/contact/delete/:nama", (req, res) => {
+  const contact = findContact(req.params.nama);
+
+  // Jika contact tidak ada
+  if (!contact) {
+    res.status(404);
+    res.send("<h1>404</h1>");
+  } else {
+    deleteContact(req.params.nama);
+    req.flash("msg", "Data kontak berhasil dihapus!");
+    res.redirect("/contact");
+  }
+});
+
+// Halaman form ubah data contact
+app.get("/contact/edit/:nama", (req, res) => {
+  const contact = findContact(req.params.nama);
+  res.render("edit-contact", {
+    title: "Form Ubah Data Contact",
+    layout: "layouts/main-layout",
+    contact,
+  });
+});
+
+// Proses ubah data contact
+app.post(
+  "/contact/update",
+  [
+    body("nama").custom((value, { req }) => {
+      const duplikat = cekDuplikat(value);
+      if (value !== req.body.oldNama && duplikat) {
+        throw new Error("Nama kontak sudah digunakan!");
+      }
+      return true;
+    }),
+    check("email", "Email tidak valid!").isEmail(),
+    check("nohp", "No.HP tidak valid!").isMobilePhone("id-ID"),
+  ],
+  (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      // return res.status(400).json({ errors: errors.array() });
+      res.render("edit-contact", {
+        title: "Form Ubah Data Contact",
+        layout: "layouts/main-layout",
+        errors: errors.array(),
+        contact: req.body,
+      });
+    } else {
+      updateContact(req.body);
+      // Kirimkan flash message
+      req.flash("msg", "Data kontak berhasil diubah!");
       res.redirect("/contact");
     }
   },

@@ -1,9 +1,9 @@
 [
   {
     "nama": "Fa'iq Fadlurrohman",
-    "nohp": "081234567890",
-    "email": "faiq@gmail.com"
+    "email": "faiq@gmail.com",
+    "nohp": "081234567890"
   },
-  { "nama": "Syifa", "nohp": "082345678901", "email": "syifa@gmail.com" },
+  { "nama": "Syifa", "email": "syifa@gmail.com", "nohp": "081456789023" },
   { "nama": "Nasywa", "email": "nasywa@gmail.com", "nohp": "081345678902" }
 ]
