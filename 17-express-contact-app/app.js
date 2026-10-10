@@ -7,6 +7,9 @@ const {
   cekDuplikat,
 } = require("./utils/contacts");
 const { body, validationResult, check } = require("express-validator");
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+const flash = require("connect-flash");
 
 const app = express();
 const port = 3000;
@@ -20,6 +23,18 @@ app.use(expresLayouts);
 // Built-In middleware
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
+
+// Konfigurasi flash
+app.use(cookieParser("secret"));
+app.use(
+  session({
+    cookie: { maxAge: 6000 },
+    secret: "secret",
+    resave: true,
+    saveUninitialized: true,
+  }),
+);
+app.use(flash());
 
 app.get("/", (req, res) => {
   const mahasiswa = [
@@ -59,6 +74,7 @@ app.get("/contact", (req, res) => {
     layout: "layouts/main-layout",
     title: "Halaman Contact",
     contacts,
+    msg: req.flash("msg"),
   });
 });
 
@@ -95,6 +111,8 @@ app.post(
       });
     } else {
       addContact(req.body);
+      // Kirimkan flash message
+      req.flash("msg", "Data kontak berhasil ditambahkan!");
       res.redirect("/contact");
     }
   },
