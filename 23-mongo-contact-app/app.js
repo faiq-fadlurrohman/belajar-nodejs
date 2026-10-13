@@ -1,6 +1,9 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 
+require("./utils/db");
+const Contact = require("./model/contact");
+
 const app = express();
 const port = 3000;
 
@@ -45,14 +48,18 @@ app.get("/about", (req, res) => {
 
 // Halaman Contact
 app.get("/contact", (req, res) => {
-  const contacts = loadContact();
-
-  res.render("contact", {
-    layout: "layouts/main-layout",
-    title: "Halaman Contact",
-    contacts,
-    msg: req.flash("msg"),
+  Contact.find().then((contact) => {
+    res.send(contact);
   });
+
+  //   const contacts = loadContact();
+
+  //   res.render("contact", {
+  //     layout: "layouts/main-layout",
+  //     title: "Halaman Contact",
+  //     contacts,
+  //     msg: req.flash("msg"),
+  //   });
 });
 
 app.listen(port, () => {
