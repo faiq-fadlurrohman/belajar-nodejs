@@ -91,14 +91,38 @@ client.connect((error, client) => {
   //     });
 
   //   Mengubah data lebih dari 1, berdasarkan kriteria
-  db.collection("mahasiswa").updateMany(
-    {
-      nama: "Fa'iq",
-    },
-    {
-      $set: {
-        nama: "Fa'iq Fadlurrohman",
-      },
-    },
-  );
+  //   db.collection("mahasiswa").updateMany(
+  //     {
+  //       nama: "Fa'iq",
+  //     },
+  //     {
+  //       $set: {
+  //         nama: "Fa'iq Fadlurrohman",
+  //       },
+  //     },
+  //   );
+
+  //   Menghapus 1 data
+  //   db.collection("mahasiswa")
+  //     .deleteOne({
+  //       _id: ObjectId("6acd825ed740b80e1c6732fe"),
+  //     })
+  //     .then((result) => {
+  //       console.log(result);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+
+  //   Menghapus lebih dari 1 data
+  db.collection("mahasiswa")
+    .deleteMany({
+      nama: "Fa'iq Fadlurrohman",
+    })
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 });
