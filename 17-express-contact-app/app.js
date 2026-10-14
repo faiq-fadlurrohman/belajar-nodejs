@@ -1,5 +1,5 @@
 const express = require("express");
-const expresLayouts = require("express-ejs-layouts");
+const expressLayouts = require("express-ejs-layouts");
 const {
   loadContact,
   findContact,
@@ -20,7 +20,7 @@ const port = 3000;
 app.set("view engine", "ejs");
 
 // Third-party Middleware
-app.use(expresLayouts);
+app.use(expressLayouts);
 
 // Built-In middleware
 app.use(express.static("public"));
@@ -80,7 +80,7 @@ app.get("/contact", (req, res) => {
   });
 });
 
-// Halaman dorm tambah data contact
+// Halaman form tambah data contact
 app.get("/contact/add", (req, res) => {
   res.render("add-contact", {
     title: "Form Tambah Data Contact",
@@ -88,7 +88,7 @@ app.get("/contact/add", (req, res) => {
   });
 });
 
-// Proses data contact
+// Proses tambah data contact
 app.post(
   "/contact",
   [
